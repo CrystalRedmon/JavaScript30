@@ -1,11 +1,16 @@
+// key events, playing audio, listening for end event
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
 
 
@@ -58,10 +63,47 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
+  <script>
 
-</script>
+
+    function playSound(e) {
+      //selected by audio tag
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      //selected by class .key
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
+      if (!audio) return; // if no audio is assigned to key
+
+      audio.currentTime = 0;
+      audio.play();
+      console.log(key)
+
+      key.classList.add('playing')
+
+    }
+
+
+    // gives each key an event listener
+    const keys = document.querySelectorAll(`.key`);
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+    function removeTransition(e) {
+
+      if (e.propertyName !== 'transform') return;
+      console.log(this)
+      this.classList.remove('playing');
+
+    };
+
+
+    // window where we are listening on the DOM 
+    // 'keydown' is the event we're listening for
+    window.addEventListener('keydown', playSound)
+
+
+  </script>
 
 
 </body>
+
 </html>
