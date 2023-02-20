@@ -1,6 +1,17 @@
-<!-- What I learned today: 
-❗
+<!-- 
+  What I learned today: 
+❗css variables 
+❗how to set CSS properties using JS
+❗how to view datasets
+❗more about 'this'
 
+
+  Further research needed: 
+📚querySelectors
+📚documentElement
+📚more about 'this'
+📚types of event listeners
+DOM and 'this'
  -->
 
 <!DOCTYPE html>
@@ -31,7 +42,7 @@
   <style>
     :root {
       --spacing: 10px;
-      --blur: 1px;
+      --blur: 10px;
       --base: #ffc600;
     }
 
@@ -76,7 +87,10 @@
     function handleUpdate() {
       const suffix = this.dataset.sizing || '';
       document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+
+      console.log(document.documentElement.style);
     }
+
    inputs.forEach(input => input.addEventListener('change', handleUpdate));
    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
 
