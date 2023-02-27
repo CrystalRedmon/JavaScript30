@@ -1,3 +1,11 @@
+<!-- this one took me a few days to complete. Not because it was difficult but because life. 
+I've used all of these methods at least once but it is clear that I need more practice. 
+I've heard of these methods are used in functional programming. I'm still not sure how that differs from oop.
+
+
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,52 +49,102 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
-    
 
-     const oldInventors = inventors.filter(inventor => {
-      if(inventor.year > 1499 && inventor.year < 1600){
+
+    const oldInventors = inventors.filter(inventor => {
+      if (inventor.year > 1499 && inventor.year < 1600) {
         return true;
       };
-     });
+    });
 
-     console.log(oldInventors);
+    console.log(oldInventors);
 
- 
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
-
-     let fullNames = inventors.map(inventor=>{
+    let fullNames = inventors.map(inventor => {
       return inventor.first + ' ' + inventor.last;
-     });
+    });
 
-     console.log(fullNames);
-
-
-
-
-
-
+    console.log(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    let sortedYoungestToOldest = inventors.sort(function (inventor1, inventor2) { return inventor1.year - inventor2.year });
+
+    let sortedOldestToYoungest = sortedYoungestToOldest.reverse();
+    console.log('old', sortedOldestToYoungest);
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
-    // 5. Sort the inventors by years lived
+    let totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year)
+    }, 0);
+
+    console.log(totalYears);
+
+    // 5. Sort the inventors by years live
+
+    let sortedByYearsLived = inventors.sort(function (inventor1, inventor2) {
+      return ((inventor1.passed - inventor1.year) - (inventor2.passed - inventor2.year));
+    })
+
+    console.table(sortedByYearsLived.reverse());
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+    // const domList = document.querySelector('.mw-category');
+    // const list = Array.from(domList.querySelectorAll('a'));
+    // const de = list
+    //   .map(city => city.textContent)
+    //   .filter(streetName => streetName.includes('de'));
+
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    // map over people and change string names to an array
+    // let names = people.map(person => person.split(','));
+    // console.log(names);
+
+
+
+    // compare sort nameArrays[0] through people array
+    let sortedNames = people.sort(function (a, b) {
+      const [alast, afirst] = a.split(', ');
+      const [blast, bfirst] = b.split(', ');
+      return alast > blast ? 1 : -1;
+      
+      // return a
+    });
+    console.log(sortedNames);
+
+
+
+
+
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+    const data = ['car', 'car', 'truck', 'truck', 'feet', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
 
+    const transportation = data.reduce(function(obj, item){
+      if(!obj[item]){
+        obj[item] = 0;
+      }
+      obj[item]++;
+   
+      return obj;
+    }, {});
+    
+    console.log(transportation);
+   
   </script>
 </body>
 
